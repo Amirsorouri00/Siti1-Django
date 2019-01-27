@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'rest_framework',
+    'rest_framework.authtoken',
     # comment_app
     'django.contrib.sites',
     'django_comments',
@@ -58,7 +61,9 @@ INSTALLED_APPS = [
     # commons
     'commons',
     # accounts
-    'accounts'
+    'accounts',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
