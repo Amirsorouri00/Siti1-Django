@@ -89,8 +89,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-linux_comment_env/
-windows_comment_env/
+linux_siti_env/
+windows_siti_env/
 
 
 # Spyder project settings
