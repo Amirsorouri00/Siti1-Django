@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "linux_siti_env/bin/python",
+    "python.linting.pylintEnabled": false
+}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,14 @@ SECRET_KEY = 'a8=m89^ut76o#4is*rw19@by#pst9p#^z!#82kc+p^vi4u^7b!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+# Comment App Settings Dependencies
+COMMENTS_APP = 'fluent_comments'
+FLUENT_COMMENTS_FORM_CLASS = 'fluent_comments.forms.CompactLabelsCommentForm'
+FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url', 'title')
+SITE_ID = 1
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -37,6 +45,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # comment_app
+    'django.contrib.sites',
+    'django_comments',
+    'fluent_comments',
+    'threadedcomments',
+    'comment_app',
+    # news_app
+    'news_app',
+    # news_app
+    'file_app',
+    # commons
+    'commons',
+    # accounts
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +97,14 @@ WSGI_APPLICATION = 'siti_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'siti1',
+        'USER': 'siti1',
+        'PASSWORD': '8C&-6(qVQ7',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -100,6 +128,29 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Custom Django auth settings
+
+AUTH_USER_MODEL = 'accounts.User'
+
+LOGIN_URL = 'login'
+
+LOGOUT_URL = 'logout'
+
+LOGIN_REDIRECT_URL = 'home'
+
+LOGOUT_REDIRECT_URL = 'home'
+
+
+# Messages built-in framework
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -118,3 +169,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# File App Dependency Settings
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+# Graph Models 
+# https://django-extensions.readthedocs.io/en/latest/graph_models.html
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
+
+##################
+# Authentication #
+##################
+# LOGOUT_REDIRECT_URL = ''
+PASSWORD_RESET_TIMEOUT_DAYS = 1
+
+
+#################
+# Email configs #
+#################
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
